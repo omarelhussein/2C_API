@@ -1,0 +1,21 @@
+steps:
+  # Step 1: Build the Docker container image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/cerp-393613/twocerpimage', './2C_API']
+
+  # Step 2: Push the Docker container image to Google Container Registry (optional, if you don't want to use GCR, skip this step)
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/cerp-393613/twocerpimage']
+
+  # Step 3: Deploy the new container image to Cloud Run
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      - 'run'
+      - 'deploy'
+      - 'twocwebapi'
+      - '--image'
+      - 'gcr.io/cerp-393613/twocerpimage'
+      - '--platform'
+      - 'managed'
+      - '--region'
+      - 'europe-west3'
