@@ -8,9 +8,9 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["C2_API.csproj", "./"]
-RUN dotnet restore "2C_API/C2_API.csproj"
+RUN dotnet restore "C2_API/C2_API.csproj"
 COPY . .
-WORKDIR "/src/2C_API"
+WORKDIR "/src/C2_API"
 RUN dotnet build "C2_API.csproj" -c Release -o /app/build
 
 FROM build AS publish
