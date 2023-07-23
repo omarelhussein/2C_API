@@ -10,7 +10,7 @@ WORKDIR /src
 COPY ["2C_API.csproj", "./"]
 RUN dotnet restore "2C_API.csproj"
 COPY . .
-WORKDIR "/src/2C_API"
+WORKDIR "/src/2C_API/2C_API"
 RUN dotnet build "2C_API.csproj" -c Release -o /app/build
 
 FROM build AS publish
