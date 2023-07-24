@@ -1,5 +1,6 @@
 using _2C_API.Data;
 using _2C_API.Data.Entities;
+using _2C_API.Middlewares;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -52,8 +53,10 @@ internal class Program
 
         app.MapControllers();
 
+        app.UseMiddleware<AuthenticateCookieMiddleware>();
+
         // Set Kestrel server URL using $PORT environment variable
         var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
-        app.Run($"https://0.0.0.0:{port}");
+        app.Run($"https://0.0.0.0:{port}"); // before having docker build change it to http://0.0.0.0:{port}
     }
 }
