@@ -2,7 +2,7 @@
 
 namespace _2C_API.Data.DTOs
 {
-    public class EmployeeViewModel
+    public class EmployeeViewModel : BaseEntityModel
     {
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;

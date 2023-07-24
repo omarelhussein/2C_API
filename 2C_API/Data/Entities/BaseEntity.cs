@@ -10,9 +10,9 @@ namespace _2C_API.Data.Entities
         [Key]
         public int Id { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        public string CreatedBy { get; set; }
+        public string? CreatedBy { get; set; }
         public DateTime ChangedAt { get; set; } = DateTime.UtcNow;
-        public string ChangedBy { get; set; }
+        public string? ChangedBy { get; set; }
         public bool IsDeleted { get; set; } = false;
     }
 }
