@@ -10,20 +10,18 @@ internal class Program
         var builder = WebApplication.CreateBuilder(args);
 
         // Add services to the container.
-
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
-
         builder.Services.AddDbContext<DatabaseContext>(options =>
-                        options.UseNpgsql(builder.Configuration.GetConnectionString(nameof(DatabaseContext))));
+            options.UseNpgsql(builder.Configuration.GetConnectionString(nameof(DatabaseContext))));
 
         builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<DatabaseContext>();
+            .AddEntityFrameworkStores<DatabaseContext>();
 
-        builder.Services.AddDistributedMemoryCache(); 
+        builder.Services.AddDistributedMemoryCache();
         builder.Services.AddSession(options =>
         {
             options.Cookie.Name = "UserSession";
@@ -54,6 +52,8 @@ internal class Program
 
         app.MapControllers();
 
-        app.Run();
+        // Set Kestrel server URL using $PORT environment variable
+        var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+        app.Run($"http://0.0.0.0:{port}");
     }
 }
