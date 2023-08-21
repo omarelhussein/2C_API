@@ -29,6 +29,8 @@ internal class Program
             options.IdleTimeout = TimeSpan.FromMinutes(360); // Adjust the session timeout as needed
         });
 
+        builder.Services.AddAuthentication();
+
         builder.Services.AddCors(policyBuilder =>
             policyBuilder.AddDefaultPolicy(policy =>
                 policy.WithOrigins("*")
@@ -53,10 +55,12 @@ internal class Program
 
         app.MapControllers();
 
+        app.UseCors();
+
         app.UseMiddleware<AuthenticateCookieMiddleware>();
 
         // Set Kestrel server URL using $PORT environment variable
         var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
-        app.Run($"https://0.0.0.0:{port}"); // before having docker build change it to http://0.0.0.0:{port}
+        app.Run($"http://0.0.0.0:{port}"); // before having docker build change it to http://0.0.0.0:{port}
     }
 }
