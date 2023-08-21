@@ -61,6 +61,6 @@ internal class Program
 
         // Set Kestrel server URL using $PORT environment variable
         var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
-        app.Run($"http://0.0.0.0:{port}"); // before having docker build change it to http://0.0.0.0:{port}
+        app.Run($"https://0.0.0.0:{port}"); // before having docker build change it to http://0.0.0.0:{port}
     }
 }

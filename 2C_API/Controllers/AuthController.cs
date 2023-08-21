@@ -1,5 +1,6 @@
 ﻿using _2C_API.Data;
 using _2C_API.Data.Entities;
+using _2C_API.Models.Auth;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -22,15 +23,15 @@ namespace _2C_API.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(string email, string password)
+        public async Task<IActionResult> Login([FromBody] LoginRequestModel request) 
         {
-            var user = _context.ApplicationUsers.Where(x => x.Email == email && !x.IsDeleted).SingleOrDefault();
+            var user = _context.ApplicationUsers.Where(x => x.Email == request.email && !x.IsDeleted).SingleOrDefault();
             if (user == null)
             {
                 return BadRequest("User doesn't exist.");
             }
 
-            var result = await _signInManager.CheckPasswordSignInAsync(user, password, false);
+            var result = await _signInManager.CheckPasswordSignInAsync(user, request.password, false);
             if (result.Succeeded)
             {
                 var userId = user.Id;
